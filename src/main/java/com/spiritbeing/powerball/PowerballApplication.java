@@ -57,6 +57,11 @@ public class PowerballApplication  implements CommandLineRunner{
         list.add(40); 
         list.add(50); 
         list.add(60); 
+        list.add(10); 
+        list.add(10); 
+        list.add(10); 
+        list.add(10); 
+        list.add(10); 
         list.add(70); 
         list.add(80); 
         list.add(90); 
@@ -84,15 +89,18 @@ public class PowerballApplication  implements CommandLineRunner{
         List<Integer> newList = new ArrayList<>(); 
         for (int i = 0; i < totalItems; i++) { 
   
-            // take a raundom index between 0 to size  
+            // take a random index between 0 to size  
             // of given List 
             int randomIndex = rand.nextInt(list.size()); 
   
             // add element in temporary list 
-            newList.add(list.get(randomIndex)); 
+            int element = list.get(randomIndex);
+            newList.add(element); 
   
             // Remove selected element from orginal list 
-            list.remove(randomIndex); 
+            
+            //list.remove(randomIndex); 
+            list.removeIf(n -> (n == element)); 
         } 
         return newList; 
     } 
