@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="site-head">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS OFFLINE MODE-->
+    <link type="text/css" rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <script  type="text/javascript" src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+
+    <title th:include=":: #pageTitle">Layout Generic Title </title>
+    <link href="../public/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link href="../public/img/favicon.ico" rel="icon" th:href="@{/img/favicon.ico}"/>
+    <script src="../public/js/jquery-3.1.0.min.js" th:src="@{/js/jquery-3.1.0.min.js}"></script>
+    <script src="../public/js/blog-scripts.js" th:src="@{/js/blog-scripts.js}"></script>
+
+    <!-- To change actively selected-->
+    <script type="text/javascript">
+        $(function(){
+            $('.navbar-nav a').filter(function(){
+                return this.href===location.href}).parent().addClass('active').siblings().removeClass('active')
+            // $('.navbar-nav a').click(function(){
+            //     $(this).parent().addClass('active').siblings().removeClass('active')
+            // }) <!--for ajax-->
+        })
+    </script>
+</head>
+<body>
+<div class="container page"> <!--FIX ME-->
+    <header th:fragment="site-header">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+                <a class="navbar-brand" href="homePage.html" th:href="@{/}"><img src="../public/img/site-logo.png"
+                                                                              th:src="@{/img/site-logo.png}"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="homePage.html" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/logout}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="table.html" th:href="@{/showTable}">Plays Table</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="frequency/frequency.html" th:href="@{/showBallsFrequencies}">Ball Frequency</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="frequency/frequency.html" th:href="@{/top10}">Top 10 Balls</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="frequency/frequency.html" th:href="@{/probability}">Probability</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="chart/barChart.html" th:href="@{/showBarChart}">Show BarChart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="chart/barChart.html" th:href="@{/showPieChart}">Show PieChart</a>
+                        </li>
+                    </ul>
+
+                        <span><b>Hello, </b></span>
+                    <a sec:authentication="name" style="margin-right: 12px"></a>
+                        <form class="form-inline" href="redirect:/showMyLoginPage?logout" th:action="@{/logout}">
+                            <button class="btn btn-sm btn-outline-success" type="submit">Logout</button>
+                          </form>
+                </div>
+            </nav>
+
+        </header>
+
+        <ul id="messages" th:with="notifyMessages=${session[T(com.spiritbeing.powerball.service.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">
+            <li th:class="${#strings.toLowerCase(msg.type)}" th:each="msg:${notifyMessages}"
+                th:text="${msg.text}">
+            </li>
+            <span th:if="${notifyMessages}" th:remove="all" th:text="${#session.removeAttribute(
+            T(com.spiritbeing.powerball.service.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY)}">
+
+            </span>
+
+        </ul>
+    </header>
+    <h1>Welcome</h1>
+    <p>Welcome ro the Spring MVC Blog</p>
+
+    <footer th:fragment="site-footer" class="fixed-bottom">
+        &COPY;Zikozee System, 2019
+    </footer>
+
+</div>
+</body>
+</html>
